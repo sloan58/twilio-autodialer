@@ -1,6 +1,6 @@
-## About UC Insight Autodialer
+## About Twilio Autodialer
 
-The UC Insight Autodialer is built on [Laravel 5.3](https://laravel.com).  It uses [Twilio](https://www.twilio.com) to place automated calls to phone numbers that you provide.
+The Twilio Autodialer is built on [Laravel 5.3](https://laravel.com).  It uses [Twilio](https://www.twilio.com) to place automated calls to phone numbers that you provide.
 
 You can register for an account [here](http://autodialer.karmatek.io/register), but you'll need a Twilio account first (see below).
 
@@ -14,7 +14,7 @@ You can register for an account [here](http://autodialer.karmatek.io/register), 
 
 ## What you will need to get started
 
-All you need to use the UC Insight Autodialer is a Twilio account and Twilio verified phone number.  You can register for a Twilio account [here](https://www.twilio.com/try-twilio).
+All you need to use the Twilio Autodialer is a Twilio account and Twilio verified phone number.  You can register for a Twilio account [here](https://www.twilio.com/try-twilio).
 Once you have your account created and obtain a verified phone number, you can register for an account with the Autodialer.  It will ask for your Twilio SID and Token.
 Now you can place calls with the Autodialer, which will be charged against your Twilio account.
 
