@@ -1,6 +1,6 @@
 ## About Twilio Autodialer
 
-The Twilio Autodialer is built on [Laravel 5.3](https://laravel.com).  It uses [Twilio](https://www.twilio.com) to place automated calls to phone numbers that you provide.
+The Twilio Autodialer is built on [Laravel 5.4](https://laravel.com).  It uses [Twilio](https://www.twilio.com) to place automated calls to phone numbers that you provide.
 
 You can register for an account [here](http://autodialer.karmatek.io/register), but you'll need a Twilio account first (see below).
 
