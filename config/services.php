@@ -36,8 +36,8 @@ return [
     ],
 
     'facebook' => [
-        'client_id' => '530009000456826',
-        'client_secret' => '5bbbcc9c211a68bf1e51af3817bbd002',
+        'client_id' => env('FB_ID'),
+        'client_secret' => env('FB_SECRET'),
         'redirect' => 'http://twilio-autodialer-54.dev/callback',
     ],
 ];
