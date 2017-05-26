@@ -80,7 +80,7 @@ class TwilioBulkCallJob implements ShouldQueue
                 $this->user->id,
                 $this->bulkFile->id
             ))->call();
-            sleep(2);
+//            sleep(2);
         }
         $this->bulkFile->status = 'Completed';
         $this->bulkFile->save();
