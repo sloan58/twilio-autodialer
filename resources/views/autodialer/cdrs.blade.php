@@ -27,7 +27,6 @@
                                     <th>Call Type</th>
                                     {{--<th>Message</th>--}}
                                     <th>Result</th>
-                                    <th>User</th>
                                     <th>Fail Reason</th>
                                     <th>Bulk File</th>
                                     <th>Timestamp</th>
@@ -42,7 +41,6 @@
                                             <td>{{$item->calltype}}</td>
                                             {{--<td>{{$item->message}}</td>--}}
                                             <td>{{$item->successful ? 'Success' : 'Fail'}}</td>
-                                            <td>{{$item->user->name}}</td>
                                             <td>{{$item->failurereason}}</td>
                                             <td>{{$item->autoDialerBulkFile->file_name or ''}}</td>
                                             <td>{{$item->created_at->format('m-d-Y H:i:s')}}</td>
