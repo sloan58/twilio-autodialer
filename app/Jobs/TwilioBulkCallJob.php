@@ -76,7 +76,7 @@ class TwilioBulkCallJob implements ShouldQueue
             \Log::debug('Bulk Dialer - Processing row', [$iteration, $row]);
             $number = substr($row[0], -10);
             (new PlaceTwilioCallService(
-                [$number,$this->say,$this->type, $this->callerId],
+                [$number,$this->say, $this->type, $this->callerId],
                 $this->user->id,
                 $this->bulkFile->id
             ))->call();
@@ -84,6 +84,6 @@ class TwilioBulkCallJob implements ShouldQueue
         }
         $this->bulkFile->status = 'Completed';
         $this->bulkFile->save();
-        event(new BulkProcessUpdated($this->bulkFile));
+//        event(new BulkProcessUpdated($this->bulkFile));
     }
 }
