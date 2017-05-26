@@ -1,0 +1,36 @@
+
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Light Bootstrap Dashboard
+@import "light-bootstrap-dashboard";
+
+// Font Awesome
+@import "node_modules/font-awesome/scss/font-awesome";
+
+// Pixeden Stroke 7
+@import "node_modules/pixeden-stroke-7-icon/pe-icon-7-stroke/scss/pe-icon-7-stroke";
+
+// Home screen Terminal look
+@import "dashboardTerminal";
+
+
+// Font Awesome icons - outline only
+.fa-phone-o {
+  @extend .fa-phone;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white;
+}
+.fa-volume-up-o {
+  @extend .fa-volume-up;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white;
+}

@@ -1,0 +1,23 @@
+// Home screen 'console' look
+.console {
+  background-color: #333;
+  height: 100%;
+  span {
+    color: #f5f5f5;
+  }
+  font-family: Monaco, "Lucida Sans Typewriter", "Lucida Console", "Bitstream Vera Sans Mono", monospace;
+  font-size: 1.5em;
+  padding: 1%;
+  #console-wrapper {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  .termPrompt {
+    color: #00ff00;
+  }
+}
+
+.navbar-inverse {
+  background-color: #333;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
