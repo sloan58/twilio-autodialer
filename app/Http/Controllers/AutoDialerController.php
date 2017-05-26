@@ -188,6 +188,10 @@ class AutoDialerController extends Controller
     {
         $bulkfile = BulkFile::find($id);
 
+        $logFiles = $bulkfile->logFiles;
+        foreach($logFiles as $logFile) {
+            Storage::delete('public/logfiles/' . $logFile->path);
+        }
         Storage::delete('public/bulkfiles/' . $bulkfile->file_name);
         BulkFile::destroy($bulkfile->id);
 

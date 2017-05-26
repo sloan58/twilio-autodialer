@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('info', function() {
-    return phpinfo();
-});
-
 // Home Route
 Route::get('/', 'HomeController@index');
 

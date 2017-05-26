@@ -53,3 +53,4 @@ require('./loginForm');
 require('./twilioSecret');
 require('./fbSdk');
 require('./dropzone');
+require('./jquery-ujs');
