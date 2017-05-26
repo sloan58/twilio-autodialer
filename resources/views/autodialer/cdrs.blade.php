@@ -25,7 +25,7 @@
                                     <th>Dialed Number</th>
                                     <th>Caller ID</th>
                                     <th>Call Type</th>
-                                    <th>Message</th>
+                                    {{--<th>Message</th>--}}
                                     <th>Result</th>
                                     <th>User</th>
                                     <th>Fail Reason</th>
@@ -40,7 +40,7 @@
                                             <td>{{$item->dialednumber}}</td>
                                             <td>{{$item->callerid}}</td>
                                             <td>{{$item->calltype}}</td>
-                                            <td>{{$item->message}}</td>
+                                            {{--<td>{{$item->message}}</td>--}}
                                             <td>{{$item->successful ? 'Success' : 'Fail'}}</td>
                                             <td>{{$item->user->name}}</td>
                                             <td>{{$item->failurereason}}</td>
@@ -49,7 +49,6 @@
                                         </tr>
                                     @endforeach
                                 @endif
-                                </tbody>
                                 </tbody>
                             </table>
                             <div class="pagination-wrapper"> {!! $cdrs->render() !!} </div>
