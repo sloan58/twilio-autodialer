@@ -28,7 +28,6 @@ require('./lbd/bootstrap-table.js');
 require('./lbd/light-bootstrap-dashboard.js');
 require('./lbd/bootstrap-show-password.min');
 
-
 // Welcome Screen
 Vue.component('WelcomeScreen', require('./components/WelcomeScreen.vue'));
 Vue.component('Blink', require('vue-blink'));
@@ -53,3 +52,4 @@ const app = new Vue({
 require('./loginForm');
 require('./twilioSecret');
 require('./fbSdk');
+require('./dropzone');

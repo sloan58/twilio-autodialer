@@ -2,12 +2,12 @@
 
 @push('auth_content')
 
-        <form role="form" method="POST" action="{{ url('/login') }}">
-          {{ csrf_field() }}
             <div class="card card-hidden">
                 <div class="header text-center">{{ config('app.name') }}</div>
                 <div class="text-center">Login</div>
                 <div class="content">
+                    <form role="form" method="POST" action="{{ url('/login') }}">
+                        {{ csrf_field() }}
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                         <label>Email Address</label>
                         <input id="email" type="email" placeholder="Enter Email" class="form-control" name="email" value="{{ old('name') }}">
@@ -31,12 +31,26 @@
                             <input type="checkbox" name="remember"> Remember Me
                         </label>
                     </div>
-                </div>
-                <div class="footer text-center">
-                    <button type="submit" class="btn btn-fill btn-warning btn-wd">Login</button>
-                    <a href="redirect" class="btn btn-info btn-fill btn-facebook"><i class="fa fa-facebook"></i>Login with Facebook</a>
+                        <div class="footer text-center">
+                            <button type="submit" class="btn btn-fill btn-warning btn-wd">Login</button>
+                        </div>
+                    </form>
+                    <hr>
+                    <div class="text-center">
+                        <h5>- Social Logins -</h5>
+                        <a href="redirect" class="btn btn-fill btn-facebook">
+                            <i class="fa fa-facebook"></i>Facebook
+                        </a>
+                        {{--<a href="redirect" class="btn btn-fill btn-google">--}}
+                            {{--<i class="fa fa-google"></i>Google--}}
+                        {{--</a>--}}
+                        {{--<a href="redirect" class="btn btn-fill btn-twitter">--}}
+                            {{--<i class="fa fa-twitter"></i>Twitter--}}
+                        {{--</a>--}}
+                        {{--<a href="redirect" class="btn btn-fill btn-linkedin">--}}
+                            {{--<i class="fa fa-linkedin"></i>LinkedIn--}}
+                        {{--</a>--}}
+                    </div>
                 </div>
             </div>
-        </form>
-
 @endpush

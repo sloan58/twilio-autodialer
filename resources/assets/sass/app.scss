@@ -8,6 +8,9 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+// Bootstrap Social
+@import "node_modules/bootstrap-social/bootstrap-social.scss";
+
 // Light Bootstrap Dashboard
 @import "light-bootstrap-dashboard";
 
@@ -16,6 +19,10 @@
 
 // Pixeden Stroke 7
 @import "node_modules/pixeden-stroke-7-icon/pe-icon-7-stroke/scss/pe-icon-7-stroke";
+
+// Dropzone
+@import "node_modules/dropzone/src/basic";
+@import "node_modules/dropzone/src/dropzone";
 
 // Home screen Terminal look
 @import "dashboardTerminal";
