@@ -38,15 +38,15 @@
                     <hr>
                     <div class="text-center">
                         <h5>- Social Logins -</h5>
-                        <a href="redirect" class="btn btn-fill btn-facebook">
+                        <a href="redirect/facebook" class="btn btn-fill btn-facebook">
                             <i class="fa fa-facebook"></i>Facebook
                         </a>
-                        {{--<a href="redirect" class="btn btn-fill btn-google">--}}
-                            {{--<i class="fa fa-google"></i>Google--}}
-                        {{--</a>--}}
-                        {{--<a href="redirect" class="btn btn-fill btn-twitter">--}}
-                            {{--<i class="fa fa-twitter"></i>Twitter--}}
-                        {{--</a>--}}
+                        <a href="redirect/google" class="btn btn-fill btn-google">
+                            <i class="fa fa-google"></i>Google
+                        </a>
+                        <a href="redirect/twitter" class="btn btn-fill btn-twitter">
+                            <i class="fa fa-twitter"></i>Twitter
+                        </a>
                         {{--<a href="redirect" class="btn btn-fill btn-linkedin">--}}
                             {{--<i class="fa fa-linkedin"></i>LinkedIn--}}
                         {{--</a>--}}
