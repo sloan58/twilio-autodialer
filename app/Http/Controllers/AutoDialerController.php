@@ -231,6 +231,10 @@ class AutoDialerController extends Controller
 
     public function bulkProcess($id)
     {
+
+        // Increase timeout for large files
+        set_time_limit(120);
+        
         // Get the BulkFile Object
         $bulkFile = BulkFile::find($id);
         \Log::info('Process Call Logs - Found Bulk File: ', [$bulkFile]);
