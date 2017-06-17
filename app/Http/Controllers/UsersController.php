@@ -114,7 +114,7 @@ class UsersController extends Controller
         if(\Auth::user()->hasRole('admin'))
         {
             \Auth::user()->setImpersonating($user->id);
-            return redirect()->back()->with('success', 'You are now impersonating ' . $user->name . '!');
+            return redirect('/')->with('success', 'You are now impersonating ' . $user->name . '!');
 
         } else {
             return redirect()->back()->with('danger', 'You are not authorized to impersonate other users!');
@@ -130,6 +130,6 @@ class UsersController extends Controller
     {
         \Auth::user()->stopImpersonating();
 
-        return redirect()->back()->with('success', 'You are no longer impersonating, ' . \Auth::user()->name . '!');
+        return redirect('/')->with('success', 'You are no longer impersonating, ' . \Auth::user()->name . '!');
     }
 }
