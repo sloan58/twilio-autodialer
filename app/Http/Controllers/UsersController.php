@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Twilio\Rest\Client as Twilio;
@@ -10,13 +11,57 @@ use App\Models\VerifiedPhoneNumber;
 
 class UsersController extends Controller
 {
+
     /**
-     * @param User $user
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * Create a new controller instance.
      */
-    public function profile(User $user)
+    public function __construct()
     {
-        return view('users.profile', compact('user'));
+        $this->middleware(['auth',]);
+
+        $this->middleware(['role:admin'])->except(['edit', 'stopImpersonate']);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        // Users vuetable-2 AJAX Request
+        if (request()->ajax()) {
+
+            $query = User::orderByVueTable();
+
+            if ($request->exists('filter')) {
+                $query->where(function ($q) use ($request) {
+                    $value = "%{$request->filter}%";
+                    $q->where('name', 'like', $value)
+                        ->orWhere('email', 'like', $value);
+                });
+            }
+            return response()->json(
+                $query->paginate(10)
+            );
+        }
+
+        $roles = Role::pluck('name', 'display_name');
+
+        return view('users.index', compact('roles', 'teams'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param User $user
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(User $user)
+    {
+        $roles = Role::pluck('name', 'id');
+        return view('users.edit', compact('user', 'roles'));
     }
 
     public function update(Request $request, User $user)
@@ -55,5 +100,36 @@ class UsersController extends Controller
         $user->verifiedPhoneNumbers()->sync($verifiedPhoneNumbers);
 
         return redirect()->back()->with('success', 'Your profile has been updated!');
+    }
+
+    /**
+     *  Impersonate a User
+     *
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function impersonate(User $user)
+    {
+        // Guard against administrator impersonate
+        if(\Auth::user()->hasRole('admin'))
+        {
+            \Auth::user()->setImpersonating($user->id);
+            return redirect()->back()->with('success', 'You are now impersonating ' . $user->name . '!');
+
+        } else {
+            return redirect()->back()->with('danger', 'You are not authorized to impersonate other users!');
+        }
+    }
+
+    /**
+     *  Stop impersonating a User
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function stopImpersonate()
+    {
+        \Auth::user()->stopImpersonating();
+
+        return redirect()->back()->with('success', 'You are no longer impersonating, ' . \Auth::user()->name . '!');
     }
 }

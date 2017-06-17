@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca5e91acd9c8f37ce51ea837e3361b33",
+    "content-hash": "aa79485218ad2e263b9b316e54518d06",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1556,6 +1556,54 @@
             "time": "2017-03-26T20:37:53+00:00"
         },
         {
+            "name": "riesjart/laravel-vue-table-sorting",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/riesjart/laravel-vue-table-sorting.git",
+                "reference": "d736c2589d74b93d5297eb611b4bc1aefc2ff101"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/riesjart/laravel-vue-table-sorting/zipball/d736c2589d74b93d5297eb611b4bc1aefc2ff101",
+                "reference": "d736c2589d74b93d5297eb611b4bc1aefc2ff101",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^5.0,<5.5",
+                "illuminate/http": "^5.0,<5.5",
+                "illuminate/support": "^5.0,<5.5",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Riesjart\\VueTable\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Richard van Baarsen",
+                    "email": "richardvanbaarsen@gmail.com"
+                }
+            ],
+            "description": "Apply sorting of Vue Table on Laravel Eloquent queries",
+            "keywords": [
+                "eloquent",
+                "laravel",
+                "model",
+                "scope",
+                "sorting",
+                "vue",
+                "vuetable"
+            ],
+            "time": "2017-06-15 08:45:52"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v5.4.8",
             "source": {
@@ -2593,6 +2641,74 @@
                 "environment"
             ],
             "time": "2016-09-01T10:05:43+00:00"
+        },
+        {
+            "name": "zizaco/entrust",
+            "version": "1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Zizaco/entrust.git",
+                "reference": "992e484f90a4d00b8ec0f42e8a59ba0b07ba1e09"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Zizaco/entrust/zipball/992e484f90a4d00b8ec0f42e8a59ba0b07ba1e09",
+                "reference": "992e484f90a4d00b8ec0f42e8a59ba0b07ba1e09",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/cache": "~5.0",
+                "illuminate/console": "~5.0",
+                "illuminate/support": "~5.0",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "illuminate/database": "~5.0",
+                "mockery/mockery": "dev-master",
+                "phpunit/phpunit": "~4.1",
+                "sami/sami": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/commands"
+                ],
+                "psr-4": {
+                    "Zizaco\\Entrust\\": "src/Entrust/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrew Elkins",
+                    "homepage": "http://andrewelkins.com"
+                },
+                {
+                    "name": "Zizaco Zizuini",
+                    "email": "zizaco@gmail.com"
+                },
+                {
+                    "name": "Ben Batschelet",
+                    "homepage": "http://github.com/bbatsche"
+                },
+                {
+                    "name": "Michele Angioni",
+                    "email": "michele.angioni@gmail.com"
+                }
+            ],
+            "description": "This package provides a flexible way to add Role-based Permissions to Laravel",
+            "keywords": [
+                "acl",
+                "auth",
+                "illuminate",
+                "laravel",
+                "permission",
+                "roles"
+            ],
+            "time": "2016-12-29T06:24:46+00:00"
         }
     ],
     "packages-dev": [
@@ -4070,7 +4186,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "riesjart/laravel-vue-table-sorting": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

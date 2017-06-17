@@ -16,7 +16,7 @@ class CheckUserTwilioAccountIsSet
     public function handle($request, Closure $next)
     {
         if(!\Auth::user()->twilio_sid || !\Auth::user()->twilio_token) {
-            return redirect()->route('users.profile', ['user' => \Auth::user()])->with('danger', 'You must enter your Twilio information before you can use the Auto Dialer!');
+            return redirect()->route('users.edit', ['user' => \Auth::user()])->with('danger', 'You must enter your Twilio information before you can use the Auto Dialer!');
         }
         return $next($request);
     }

@@ -11,22 +11,36 @@
 |
 */
 
-// Home Route
-Route::get('/', 'HomeController@index');
-
 // Auth Routes
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => ['auth', 'impersonate']], function() {
 
-    // User Profile Pages
-    Route::get('profile/{user}', 'UsersController@profile')->name('users.profile');
-    Route::put('users/{user}', 'UsersController@update')->name('users.update');
+    // User Profile Page
+    Route::resource('users', 'UsersController', [
+        'only' => [
+            'edit'
+        ]
+    ]);
 
+    // Impersonation Routes
+    Route::group(['middleware' => 'role:admin'], function() {
+        Route::get('/users/impersonate/{user}', 'UsersController@impersonate');
+    });
+    Route::get('/users/stop', 'UsersController@stopImpersonate');
+
+    // Routes that require Twilio integration
     Route::group(['middleware' => 'users.twilio'], function() {
 
-        // User Routes
-        Route::resource('users', 'UsersController', ['except' => ['update']]);
+        // Home Route
+        Route::get('/', 'HomeController@index');
+
+        // User Resource Routes
+        Route::resource('users', 'UsersController', [
+            'except' => [
+                'edit'
+            ]
+        ]);
 
         // AutoDialer Routes
         Route::group(['prefix' => 'autodialer'], function() {
@@ -47,5 +61,6 @@ Route::group(['middleware' => 'auth'], function() {
     });
 });
 
+// Social Login callbacks and redirects
 Route::get('/redirect/{provider}', 'SocialAuthController@redirect');
 Route::get('/callback/{provider}', 'SocialAuthController@callback');

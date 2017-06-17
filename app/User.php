@@ -3,15 +3,19 @@
 namespace App;
 
 use App\Models\Cdr;
+use App\Models\Role;
 use App\Models\BulkFile;
 use App\Models\AudioMessage;
 use App\Models\VerifiedPhoneNumber;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Notifications\Notifiable;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Riesjart\VueTable\Traits\VueTableSortable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, EntrustUserTrait, VueTableSortable;
 
     /**
      * The attributes that are mass assignable.
@@ -30,6 +34,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     *  A User belongs to many Roles
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
 
     /**
      *  A User has many VerifiedPhoneNumbers
@@ -91,5 +105,31 @@ class User extends Authenticatable
     public function setTwilioTokenAttribute($value)
     {
         $this->attributes['twilio_token'] =  encrypt($value);
+    }
+
+    /**
+     *  Set the Impersonation User ID
+     *
+     * @param $id
+     */
+    public function setImpersonating($id)
+    {
+        Session::put('impersonate', $id);
+    }
+
+    /**
+     * Stop impersonating the User
+     */
+    public function stopImpersonating()
+    {
+        Session::forget('impersonate');
+    }
+
+    /*
+     *  Check if we are impersonating a User
+     */
+    public function isImpersonating()
+    {
+        return Session::has('impersonate');
     }
 }

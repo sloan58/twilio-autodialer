@@ -16,7 +16,7 @@
             </a>
             <div class="collapse" id="collapseExample">
                 <ul class="nav">
-                    <li><a href="/profile/{{ Auth::user()->id }}">My Profile</a></li>
+                    <li><a href="{{ route('users.edit', Auth::user()->id) }}">My Profile</a></li>
                 </ul>
             </div>
         </div>
@@ -44,5 +44,22 @@
                 </p>
             </a>
         </li>
+        @if(Auth::user()->hasRole('admin'))
+        <li @if(in_array(Route::current()->getName(), ['users.index', 'users.edit'])) class="active" @endif>
+            <a href="{{ route('users.index') }}">
+                <i class="pe-7s-id"></i>
+                <p>Users</p>
+            </a>
+        </li>
+        @endif
+        @if(Auth::user()->isImpersonating())
+            <li class="fa-blink">
+                <a href="{{ url('users/stop') }}">
+                    <i class="fa fa-user-secret text-warning" aria-hidden="true"></i>
+                    <p>Stop Impersonating</p>
+                </a>
+
+            </li>
+        @endif
     </ul>
 </div>

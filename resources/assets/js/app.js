@@ -28,10 +28,22 @@ require('./lbd/bootstrap-table.js');
 require('./lbd/light-bootstrap-dashboard.js');
 require('./lbd/bootstrap-show-password.min');
 
+// NPM Packages
+Vue.component('vuetable', require('vuetable-2/src/components/Vuetable'));
+Vue.component('vuetable-pagination', require('vuetable-2/src/components/VuetablePagination'));
+Vue.component('vuetable-pagination-info', require('vuetable-2/src/components/VuetablePaginationInfo'));
+
 // Welcome Screen
-Vue.component('WelcomeScreen', require('./components/WelcomeScreen.vue'));
 Vue.component('Blink', require('vue-blink'));
+Vue.component('WelcomeScreen', require('./components/WelcomeScreen.vue'));
 Vue.component('BulkProcessTable', require('./components/BulkProcessTable.vue'));
+
+// Vuetable-2 Filter Bar
+Vue.component('vue-table-filter-bar', require('./components/VueTableFilterBar.vue'));
+
+// Users Pages
+Vue.component('UsersTable', require('./components/Users/UsersTable.vue'));
+Vue.component('UsersTableActions', require('./components/Users/UsersTableActions.vue'));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
