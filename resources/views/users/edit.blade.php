@@ -13,7 +13,7 @@
                             <div class="content">
                                 <div class="author">
                                     <a href="#">
-                                        <img class="avatar border-gray" src="{{ Gravatar::src( Auth::user()->email ) }}" alt="...">
+                                        <img class="avatar border-gray" src="{{ Gravatar::src( $user->email ) }}" alt="...">
 
                                         <h4 class="title">
                                             {{ Auth::user()->name }}<br>

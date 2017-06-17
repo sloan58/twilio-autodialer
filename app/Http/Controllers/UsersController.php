@@ -19,7 +19,9 @@ class UsersController extends Controller
     {
         $this->middleware(['auth',]);
 
-        $this->middleware(['role:admin'])->except(['edit', 'stopImpersonate']);
+        $this->middleware(['role:admin'])->except([
+            'edit', 'stopImpersonate'
+        ]);
     }
 
     /**
@@ -47,9 +49,7 @@ class UsersController extends Controller
             );
         }
 
-        $roles = Role::pluck('name', 'display_name');
-
-        return view('users.index', compact('roles', 'teams'));
+        return view('users.index');
     }
 
     /**
@@ -60,8 +60,11 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = Role::pluck('name', 'id');
-        return view('users.edit', compact('user', 'roles'));
+        if(\Auth::user()->id == $user->id || \Auth::user()->hasRole('admin')) {
+            return view('users.edit', compact('user'));
+        } else {
+            abort(403);
+        }
     }
 
     public function update(Request $request, User $user)
