@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
 use App\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Twilio\Rest\Client as Twilio;
 use Twilio\Exceptions\RestException;
@@ -17,10 +17,8 @@ class UsersController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth',]);
-
         $this->middleware(['role:admin'])->except([
-            'edit', 'stopImpersonate'
+            'edit', 'update', 'stopImpersonate'
         ]);
     }
 
@@ -69,6 +67,7 @@ class UsersController extends Controller
 
     public function update(Request $request, User $user)
     {
+
         // Validate the form input
         $this->validate($request, [
             'name' => 'required|max:255',

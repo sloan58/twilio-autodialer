@@ -17,11 +17,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth', 'impersonate']], function() {
 
     // User Profile Page
-    Route::resource('users', 'UsersController', [
-        'only' => [
-            'edit'
-        ]
-    ]);
+    Route::resource('users', 'UsersController');
 
     // Impersonation Routes
     Route::group(['middleware' => 'role:admin'], function() {
@@ -34,13 +30,6 @@ Route::group(['middleware' => ['auth', 'impersonate']], function() {
 
         // Home Route
         Route::get('/', 'HomeController@index');
-
-        // User Resource Routes
-        Route::resource('users', 'UsersController', [
-            'except' => [
-                'edit'
-            ]
-        ]);
 
         // AutoDialer Routes
         Route::group(['prefix' => 'autodialer'], function() {
