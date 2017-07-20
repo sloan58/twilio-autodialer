@@ -134,4 +134,9 @@ class UsersController extends Controller
 
         return redirect('/')->with('success', 'You are no longer impersonating, ' . \Auth::user()->name . '!');
     }
+
+    public function show()
+    {
+        
+    }
 }

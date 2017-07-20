@@ -17,7 +17,11 @@ Auth::routes();
 Route::group(['middleware' => ['auth', 'impersonate']], function() {
 
     // User Profile Page
-    Route::resource('users', 'UsersController');
+    Route::resource('users', 'UsersController', [
+        'except' => [
+            'show'
+        ]
+    ]);
 
     // Impersonation Routes
     Route::group(['middleware' => 'role:admin'], function() {
