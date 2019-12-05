@@ -52,7 +52,7 @@ DB_PASSWORD=
 - Migrate the database
 
 ```bash
-php artisan:migrate
+php artisan migrate
 ```
 
 - Create an Admin user
