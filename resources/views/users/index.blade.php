@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <users-table></users-table>
+    {{-- <users-table></users-table> --}}
 
 @endsection
 

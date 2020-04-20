@@ -10,12 +10,11 @@ use App\Models\VerifiedPhoneNumber;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Notifications\Notifiable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
-use Riesjart\VueTable\Traits\VueTableSortable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable, EntrustUserTrait, VueTableSortable;
+    use Notifiable, EntrustUserTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -93,8 +92,9 @@ class User extends Authenticatable
      */
     public function getTwilioTokenAttribute($value)
     {
-        if($value) return decrypt($value);
-
+        if ($value) {
+            return decrypt($value);
+        }
     }
 
     /**
