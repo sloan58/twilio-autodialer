@@ -30,24 +30,27 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
+        $users = User::paginate(10);
+
+        return view('users.index', compact('users'));
+        
         // Users vuetable-2 AJAX Request
-        if (request()->ajax()) {
+        // if (request()->ajax()) {
+        //     $query = User::orderByVueTable();
 
-            $query = User::orderByVueTable();
+        //     if ($request->exists('filter')) {
+        //         $query->where(function ($q) use ($request) {
+        //             $value = "%{$request->filter}%";
+        //             $q->where('name', 'like', $value)
+        //                 ->orWhere('email', 'like', $value);
+        //         });
+        //     }
+        //     return response()->json(
+        //         $query->paginate(10)
+        //     );
+        // }
 
-            if ($request->exists('filter')) {
-                $query->where(function ($q) use ($request) {
-                    $value = "%{$request->filter}%";
-                    $q->where('name', 'like', $value)
-                        ->orWhere('email', 'like', $value);
-                });
-            }
-            return response()->json(
-                $query->paginate(10)
-            );
-        }
-
-        return view('users.index');
+        // return view('users.index');
     }
 
     /**
@@ -58,7 +61,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        if(\Auth::user()->id == $user->id || \Auth::user()->hasRole('admin')) {
+        if (\Auth::user()->id == $user->id || \Auth::user()->hasRole('admin')) {
             return view('users.edit', compact('user'));
         } else {
             abort(403);
@@ -113,11 +116,9 @@ class UsersController extends Controller
     public function impersonate(User $user)
     {
         // Guard against administrator impersonate
-        if(\Auth::user()->hasRole('admin'))
-        {
+        if (\Auth::user()->hasRole('admin')) {
             \Auth::user()->setImpersonating($user->id);
             return redirect('/')->with('success', 'You are now impersonating ' . $user->name . '!');
-
         } else {
             return redirect()->back()->with('danger', 'You are not authorized to impersonate other users!');
         }
@@ -135,8 +136,9 @@ class UsersController extends Controller
         return redirect('/')->with('success', 'You are no longer impersonating, ' . \Auth::user()->name . '!');
     }
 
-    public function show()
+    public function destroy(User $user)
     {
-        
+        $user->delete();
+        return redirect()->back()->with('info', 'User deleted!');
     }
 }
