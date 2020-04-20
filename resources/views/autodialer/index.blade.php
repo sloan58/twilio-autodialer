@@ -27,7 +27,7 @@
                                 @endif
                             </div>
                             <div class="form-group{{ $errors->has('number') ? ' has-error' : '' }}">
-                                {!! Form::label('Phone Number','Phone Number to Dial (NANP Only)') !!}
+                                {!! Form::label('Phone Number','Phone Number to Dial (E.164)') !!}
                                 {!! Form::text('number', null, ['class' => 'form-control']) !!}
                                 @if ($errors->has('number'))
                                     <span class="help-block">

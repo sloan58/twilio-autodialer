@@ -48,20 +48,22 @@ class PlaceTwilioCallService
         $cdr = new Cdr();
         $cdr->user_id = $this->userId;
 
+        $argCount = count($this->call);
+
         // If the record is not formatted correctly, bail.
-        if(count($this->call) != 4) {
-            Log::error("Incorrect format for call request.  Expected 5 parameters and got " . count($this->call), [$this->call]);
-            if(is_numeric($this->call[0])) {
-                $cdr->dialednumber = '+1' .  substr($this->call[0], -10);
+        if (count($argCount != 4)) {
+            Log::error("Incorrect format for call request.  Expected 4 parameters and got $argCount", [$this->call]);
+            if (is_numeric($this->call[0])) {
+                $cdr->dialednumber = "+{$this->call[0]}";
             }
             $cdr->successful = false;
-            $cdr->failurereason = "Incorrect format for call request.  Expected 5 parameters and got " . count($this->call);
+            $cdr->failurereason = "Incorrect format for call request.  Expected 4 parameters and got $argCount";
             $cdr->save();
             return false;
         }
 
-        $number = substr($this->call[0], -10);
-        $e164 = '+1' . $number;
+        $dialedNumber = $this->call[0];
+        $e164 = substr($dialedNumber, 0, 1) === "+" ? $dialedNumber : "+{$dialedNumber}";
         $say = $this->call[1];
         $type = $this->call[2];
         $callerId = $this->call[3];
@@ -75,13 +77,10 @@ class PlaceTwilioCallService
         /*
          * Check that the dialed number is actually a number
          */
-        if(!is_numeric($number))
-        {
-            if(is_numeric($this->call[0])) {
-                $cdr->dialednumber = $e164;
-            }
+        if (!is_numeric($dialedNumber)) {
+            $cdr->dialednumber = $dialedNumber;
             $cdr->successful = false;
-            $cdr->failurereason = "The Dialed Number " . $number . " is not a number";
+            $cdr->failurereason = "The Dialed Number $dialedNumber is not a number";
             $cdr->save();
             return false;
         }
@@ -90,8 +89,8 @@ class PlaceTwilioCallService
          *  Check that the ANI is owned by the User (Twilio verified phone number)
          */
         $user = User::find($this->userId);
-        if(! $user->verifiedPhoneNumbers->contains(VerifiedPhoneNumber::where('phone_number', $callerId)->pluck('id')->first())) {
-            if(is_numeric($this->call[0])) {
+        if (! $user->verifiedPhoneNumbers->contains(VerifiedPhoneNumber::where('phone_number', $callerId)->pluck('id')->first())) {
+            if (is_numeric($this->call[0])) {
                 $cdr->dialednumber = $e164;
             }
             $cdr->successful = false;
@@ -105,65 +104,51 @@ class PlaceTwilioCallService
          */
 
         $twilio = new Twilio(
-            User::find($this->userId)->twilio_sid,
-            User::find($this->userId)->twilio_token
+            $user->twilio_sid,
+            $user->twilio_token
         );
 
-        if(strtolower($type) == 'voice' || strtolower($type) == 'audio')
-        {
-
+        if (strtolower($type) == 'voice' || strtolower($type) == 'audio') {
             $say = 'http://twimlets.com/message?Message%5B0%5D=' . urlencode($say);
             $cdr->calltype = 'Phone Call';
 
             try {
-
                 $twilio->account->calls->create($e164, $callerId, ['url' => $say]);
-
-            } catch(RestException $e) {
+            } catch (RestException $e) {
                 $cdr->successful = false;
                 $cdr->failurereason = $e->getMessage();
                 $cdr->save();
                 return false;
-
             }
 
             $cdr->successful = true;
             $cdr->save();
 
             return true;
-
-
-        } elseif(strtolower($type) == 'text') {
-
+        } elseif (strtolower($type) == 'text') {
             $cdr->calltype = 'Text Message';
 
             try {
-
                 $twilio->account->messages->create($e164, ['from' => $callerId, 'body' => $say]);
-
-            } catch(RestException $e) {
+            } catch (RestException $e) {
                 $cdr->successful = false;
                 $cdr->failurereason = $e->getMessage();
                 $cdr->save();
                 return false;
-
             }
 
             $cdr->successful = true;
             $cdr->save();
 
             return true;
-
         } else {
-            if(is_numeric($this->call[0])) {
+            if (is_numeric($this->call[0])) {
                 $cdr->dialednumber = $e164;
             }
             $cdr->successful = false;
-            $cdr->failurereason = "The call type " . $type . " is invalid";
+            $cdr->failurereason = "The call type $type is invalid";
             $cdr->save();
             return false;
-
         }
-
     }
 }
