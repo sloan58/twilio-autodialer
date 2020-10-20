@@ -124,7 +124,7 @@ class AutoDialerController extends Controller
         }
 
         // Store the file
-        $fileName = Carbon::now()->timestamp . '_' . $request->file('file')->getClientOriginalName();
+        $fileName = Carbon::now()->timestamp . '.csv';
         $request->file('file')->storeAs(
             'bulkfiles', $fileName , 'public'
         );
