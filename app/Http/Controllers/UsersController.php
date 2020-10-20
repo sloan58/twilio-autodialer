@@ -33,7 +33,7 @@ class UsersController extends Controller
         $users = User::paginate(10);
 
         return view('users.index', compact('users'));
-        
+
         // Users vuetable-2 AJAX Request
         // if (request()->ajax()) {
         //     $query = User::orderByVueTable();
@@ -98,7 +98,8 @@ class UsersController extends Controller
         $verifiedPhoneNumbers = [];
         foreach ($client->incomingPhoneNumbers->read() as $number) {
             $verifiedPhoneNumber = VerifiedPhoneNumber::firstOrCreate([
-                'phone_number' => $number->phoneNumber
+                'phone_number' => $number->phoneNumber,
+                'friendly_name' => $number->friendlyName
             ]);
             $verifiedPhoneNumbers[] = $verifiedPhoneNumber->id;
         }

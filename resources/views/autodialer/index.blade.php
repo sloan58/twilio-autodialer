@@ -19,7 +19,7 @@
                             {!! Form::open( ['route' => 'autodialer.store', 'id' => 'app'] ) !!}
                             <div class="form-group{{ $errors->has('caller_id') ? ' has-error' : '' }}">
                                 {!! Form::label('Caller ID','Your Caller ID') !!}
-                                {!! Form::select('caller_id', $verifiedPhoneNumbers, null, ['class' => 'selectpicker form-control', 'data-style' => 'btn-default btn-block']) !!}
+                                {!! Form::select('friendly_name', $verifiedPhoneNumbers, null, ['class' => 'selectpicker form-control', 'data-style' => 'btn-default btn-block']) !!}
                                 @if ($errors->has('caller_id'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('caller_id') }}</strong>

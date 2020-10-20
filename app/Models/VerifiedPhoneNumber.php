@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class VerifiedPhoneNumber extends Model
 {
-    protected $fillable = ['phone_number'];
+    protected $fillable = ['phone_number', 'friendly_name'];
 
     /**
      *  A Verified Caller ID belongs to a User

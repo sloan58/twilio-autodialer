@@ -62,7 +62,7 @@
                                         <label>Twilio Verified Phone Numbers</label>
                                         <ul class="list-group">
                                             @foreach(Auth::user()->verifiedPhoneNumbers as $verifiedPhoneNumber)
-                                            <li class="list-group-item">{{ $verifiedPhoneNumber->phone_number }}</li>
+                                            <li class="list-group-item">{{ $verifiedPhoneNumber->friendly_name }} ({{ $verifiedPhoneNumber->phone_number }})</li>
                                             @endforeach
                                         </ul>
                                     </div>

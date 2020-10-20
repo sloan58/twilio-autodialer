@@ -16,6 +16,7 @@ class CreateVerifiedPhoneNumbersTable extends Migration
         Schema::create('verified_phone_numbers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('phone_number')->unique();
+            $table->string('friendly_name')->unique();
             $table->timestamps();
         });
     }

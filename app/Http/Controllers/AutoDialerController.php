@@ -26,7 +26,7 @@ class AutoDialerController extends Controller
     public function index()
     {
         // Get the Users verified Twilio Phone Numbers
-        $verifiedPhoneNumbers = \Auth::user()->verifiedPhoneNumbers->pluck('phone_number', 'id');
+        $verifiedPhoneNumbers = \Auth::user()->verifiedPhoneNumbers->pluck('friendly_name', 'id');
 
         // Get the Users loaded Audio Messages
         $audioMessages = \Auth::user()->audioMessages()->pluck('file_name', 'id')->toArray();
@@ -87,7 +87,7 @@ class AutoDialerController extends Controller
         $bulkFiles = \Auth::user()->bulkFiles()->orderBy('created_at')->paginate(15);
 
         // Get the Users verified Twilio Phone Numbers
-        $verifiedPhoneNumbers = \Auth::user()->verifiedPhoneNumbers->pluck('phone_number', 'id');
+        $verifiedPhoneNumbers = \Auth::user()->verifiedPhoneNumbers->pluck('friendly_name', 'id');
 
         // Get the Users loaded Audio Messages
         $audioMessages = \Auth::user()->audioMessages()->pluck('file_name', 'id')->toArray();
@@ -234,7 +234,7 @@ class AutoDialerController extends Controller
 
         // Increase timeout for large files
         set_time_limit(120);
-        
+
         // Get the BulkFile Object
         $bulkFile = BulkFile::find($id);
         \Log::info('Process Call Logs - Found Bulk File: ', [$bulkFile]);
