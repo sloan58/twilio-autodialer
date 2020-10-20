@@ -51,7 +51,7 @@ class PlaceTwilioCallService
         $argCount = count($this->call);
 
         // If the record is not formatted correctly, bail.
-        if (count($argCount != 4)) {
+        if ($argCount != 4) {
             Log::error("Incorrect format for call request.  Expected 4 parameters and got $argCount", [$this->call]);
             if (is_numeric($this->call[0])) {
                 $cdr->dialednumber = "+{$this->call[0]}";
@@ -63,7 +63,7 @@ class PlaceTwilioCallService
         }
 
         $dialedNumber = $this->call[0];
-        $e164 = substr($dialedNumber, 0, 1) === "+" ? $dialedNumber : "+{$dialedNumber}";
+        $e164 = substr($dialedNumber, 0, 1) === "+1" ? $dialedNumber : "+1{$dialedNumber}";
         $say = $this->call[1];
         $type = $this->call[2];
         $callerId = $this->call[3];
