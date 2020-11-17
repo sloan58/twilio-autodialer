@@ -26,7 +26,7 @@
 <div id="app">
     @if(Auth::guest())
         <div class="wrapper wrapper-full-page">
-            <div class="full-page login-page" data-color="black" data-image="/img/full-screen-tech.jpg">
+            <div class="login-page" data-color="black" data-image="/img/full-screen-tech.jpg">
                 @yield('content')
             </div>
         </div>
