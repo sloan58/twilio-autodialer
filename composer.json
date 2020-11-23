@@ -8,7 +8,7 @@
   "license": "MIT",
   "type": "project",
   "require": {
-    "php": ">=5.6.4",
+    "php": "~7.2.0",
     "keboola/csv": "^1.1",
     "laravel/framework": "5.5.*",
     "laravel/socialite": "^3.0",
