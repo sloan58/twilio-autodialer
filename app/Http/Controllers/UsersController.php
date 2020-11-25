@@ -97,8 +97,9 @@ class UsersController extends Controller
         // Update the Users verified Twilio Phone Numbers
         $verifiedPhoneNumbers = [];
         foreach ($client->incomingPhoneNumbers->read() as $number) {
-            $verifiedPhoneNumber = VerifiedPhoneNumber::firstOrCreate([
-                'phone_number' => $number->phoneNumber,
+            $verifiedPhoneNumber = VerifiedPhoneNumber::updateOrCreate([
+                'phone_number' => $number->phoneNumber
+            ], [
                 'friendly_name' => $number->friendlyName
             ]);
             $verifiedPhoneNumbers[] = $verifiedPhoneNumber->id;
