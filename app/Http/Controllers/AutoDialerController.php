@@ -51,7 +51,7 @@ class AutoDialerController extends Controller
             'caller_id' => 'required',
         ]);
 
-        $number = substr($request->number, -10);
+        $number = $request->number;
         // If this request is to play an audio file, generate the URL for the file location.
         // Otherwise, just use the text entered in the form.
         if($request->audioMessage) {
