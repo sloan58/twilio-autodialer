@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use App\Jobs\TwilioBulkCallJob;
 use App\Jobs\PlaceTwilioCallJob;
 use App\Models\VerifiedPhoneNumber;
+use Keboola\Csv\Exception;
+use Keboola\Csv\InvalidArgumentException;
 use Symfony\Component\Process\Process;
 use Illuminate\Support\Facades\Storage;
 
@@ -234,7 +236,7 @@ class AutoDialerController extends Controller
 
         // Increase timeout for large files
         set_time_limit(120);
-        
+
         // Get the BulkFile Object
         $bulkFile = BulkFile::find($id);
         \Log::info('Process Call Logs - Found Bulk File: ', [$bulkFile]);
@@ -255,7 +257,14 @@ class AutoDialerController extends Controller
                 \Log::info('Process Call Logs - There were CDRs: ', [$calls->count()]);
 
                 // Create the output report
-                $csvFile = new CsvFile(storage_path() . '/app/public/processed/processed_' . $bulkFile->file_name);
+                try {
+                    $csvFile = new CsvFile(storage_path() . '/app/public/processed/processed_' . $bulkFile->file_name);
+                } catch (InvalidArgumentException $e) {
+                    \Log::error('Process Call Logs - could not open output file', [
+                        'error' => $e->getMessage()
+                    ]);
+                    return redirect()->back()->with('danger', 'Could not create output report.  Please check log file for details');
+                }
                 \Log::info('Process Call Logs - Opened CSV: ', [$bulkFile->file_name]);
 
                 // Set the report headers
@@ -269,7 +278,14 @@ class AutoDialerController extends Controller
                     'Matching Log File',
 
                 ];
-                $csvFile->writeRow($headers);
+                try {
+                    $csvFile->writeRow($headers);
+                } catch (Exception $e) {
+                    \Log::error('Process Call Logs - could write headers', [
+                        'error' => $e->getMessage()
+                    ]);
+                    return redirect()->back()->with('danger', 'Error writing to output report.  Please check log file for details');
+                }
 
                 // Loop each call and check if it appears in the logs
                 foreach($calls as $call) {
@@ -293,7 +309,21 @@ class AutoDialerController extends Controller
                         // If we have a result, the dialed number was found in the LogFile
                         if($res) {
                             \Log::debug('Process Call Logs - Success!  Writing row:');
-                            $csvFile->writeRow([$call->dialednumber, $call->callerid, $call->calltype, $call->message, $call->successful, $call->failreason, $logFile->path]);
+                            try {
+                                $csvFile->writeRow([
+                                    $call->dialednumber,
+                                    $call->callerid,
+                                    $call->calltype,
+                                    $call->message,
+                                    $call->successful,
+                                    $call->failreason,
+                                    $logFile->path
+                                ]);
+                            } catch (Exception $e) {
+                                \Log::error('Process Call Logs - error writing row to csv', [
+                                    'error' => $e->getMessage()
+                                ]);
+                            }
                             continue 2;
                         }
                     }
