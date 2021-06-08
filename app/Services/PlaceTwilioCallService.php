@@ -63,7 +63,8 @@ class PlaceTwilioCallService
         }
 
         $dialedNumber = $this->call[0];
-        $e164 = substr($dialedNumber, 0, 1) === "+" ? $dialedNumber : strlen($dialedNumber) === 10 ? "+1{$dialedNumber}" : "+{$dialedNumber}";
+
+        $e164 = substr($dialedNumber, 0, 1) === "+" ? $dialedNumber : "+{$dialedNumber}";
         $say = $this->call[1];
         $type = $this->call[2];
         $callerId = $this->call[3];
