@@ -74,9 +74,8 @@ class TwilioBulkCallJob implements ShouldQueue
         $iteration = rand();
         foreach($this->chunk as $row) {
             \Log::debug('Bulk Dialer - Processing row', [$iteration, $row]);
-            $number = substr($row[0], -10);
             (new PlaceTwilioCallService(
-                [$number,$this->say, $this->type, $this->callerId],
+                [ $row[0], $this->say, $this->type, $this->callerId ],
                 $this->user->id,
                 $this->bulkFile->id
             ))->call();
